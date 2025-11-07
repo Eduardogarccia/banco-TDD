@@ -12,15 +12,28 @@ public class ContaBancaria {
     }
 
     public void depositar(double valor) {
-        if (valor > 0) {
+        if (isValorPositivo(valor)) {
             saldo += valor;
         }
     }
 
-
     public void sacar(double valor) {
-        if (valor > 0 && valor <= saldo) {
-            saldo -= valor;
+        if (!isValorPositivo(valor)) {
+            return;
         }
+
+        if (!possuiSaldoSuficiente(valor)) {
+            return;
+        }
+
+        saldo -= valor;
+    }
+
+    private boolean isValorPositivo(double valor) {
+        return valor > 0;
+    }
+
+    private boolean possuiSaldoSuficiente(double valor) {
+        return valor <= saldo;
     }
 }
